@@ -31,12 +31,17 @@ module SmsUkraine
     describe "#send" do
       before { sender.stub(:open).and_return("id:103796881\nsms_count:1\n") }
       context "url" do
-        after { sender.send_sms("test", "380930149181", "test message") }
+        after { sender.send_sms("123123", "test message", "test") }
 
         it_behaves_like "request to smsukraine"
 
-        it "should send command=send&from=name&to=phone&message=message" do
-          sender.should_receive(:open).with(/command=send&from=test&to=380930149181&message=test\+message/)
+        it "should send command=send&to=phone&message=message&from=name" do
+          sender.should_receive(:open).with(/command=send&to=123123&message=test\+message&from=test/)
+        end
+
+        it "should send from=login as default from" do
+          sender.should_receive(:open).with(/command=send&to=123123&message=test\+message&from=log/)
+          sender.send_sms("123123", "test message")
         end
       end
 

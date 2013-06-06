@@ -12,8 +12,8 @@ module SmsUkraine
       execute(command: "balance")
     end
 
-    def send_sms(name, to, message)
-      execute(command: "send", from: name, to: to, message: message)
+    def send_sms(to, message, name = nil)
+      execute(command: "send", to: to, message: message, from: name || @params[:login])
     end
 
     def status(id)
