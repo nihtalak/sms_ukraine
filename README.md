@@ -9,6 +9,7 @@ Use case
 
 ```ruby
 require "sms_ukraine"
+include SmsUkraine::DSL
 
 login "380xxxxxxx", "xxxxxxx"     # login / password
 as "Vova"                         # from name
